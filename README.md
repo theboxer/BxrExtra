@@ -40,3 +40,6 @@ Now you should have fully working extra with functions described below.
 - Grid with inline editing, right menu function and new item / update item / delete item window and search box
 
 If you do not require all of this functionality, simply remove it and change the appropriate code.
+
+## Others
+Fell free to open pull requests or add [issues](https://github.com/TheBoxer/BxrExtra/issues "Issues").
