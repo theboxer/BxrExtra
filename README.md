@@ -1,4 +1,4 @@
-## BxrExtra
+# BxrExtra
 
 BxrExtra is based on modExtra from Shaun McCormick.
 
@@ -10,7 +10,10 @@ You can delete '.git' folder now.
 
 Edit 'config.core.php' file and point 'MODX_CORE_PATH' constant to your MODx core location.
 
-Now you want to rename BxrExtra to YourComponent, co first of all edit 'rename_it.sh' and set 'repl1' to 'YourComponent' and 'repl2' to 'yourcomponent'.
+Now you want to rename BxrExtra to YourComponent, co first of all edit 'rename_it.sh' and set
+'repl1' to 'YourComponent',
+'repl2' to 'yourcomponent' and
+'path' to './yourcomponent'.
 Run 'rename_it.sh'
 Edit 'yourcomponent/core/components/yourcomponent/templates/home.tpl' and change id of div from 'bxrextra-panel-home-div' to 'yourcomponent-panel-home-div'.
 
