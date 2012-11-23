@@ -18,5 +18,17 @@ class BxrExtraUpdateFromGridProcessor extends BxrExtraUpdateProcessor {
 
         return parent::initialize();
     }
+
+    public function beforeSave() {
+        $name = $this->getProperty('name');
+
+        if (empty($name)) {
+            $this->addFieldError('name',$this->modx->lexicon('bxrextra.item_err_ns_name'));
+
+        } else if ($this->modx->getCount($this->classKey, array('name' => $name))) {
+            $this->addFieldError('name',$this->modx->lexicon('bxrextra.item_err_ae'));
+        }
+        return parent::beforeSave();
+    }
 }
 return 'BxrExtraUpdateFromGridProcessor';
