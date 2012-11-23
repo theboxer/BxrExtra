@@ -32,7 +32,7 @@ BxrExtra.grid.Items = function(config) {
             text: _('bxrextra.item_create')
             ,handler: this.createItem
             ,scope: this
-        },{
+        },'->',{
             xtype: 'textfield'
             ,id: 'bxrextra-search-filter'
             ,emptyText: _('bxrextra.search...')
