@@ -13,6 +13,8 @@ BxrExtra.grid.Items = function(config) {
         ,autoHeight: true
         ,paging: true
         ,remoteSort: true
+        ,ddGroup: 'bxrextraItemDDGroup'
+        ,enableDragDrop: true
         ,columns: [{
             header: _('id')
             ,dataIndex: 'id'
@@ -51,6 +53,44 @@ BxrExtra.grid.Items = function(config) {
                 },scope:this}
             }
         }]
+        ,listeners: {
+            'render': function(g) {
+                var ddrow = new Ext.ux.dd.GridReorderDropTarget(g, {
+                    copy: false
+                    ,listeners: {
+                        'beforerowmove': function(objThis, oldIndex, newIndex, records) {
+                        }
+
+                        ,'afterrowmove': function(objThis, oldIndex, newIndex, records) {
+
+                            MODx.Ajax.request({
+                                url: BxrExtra.config.connectorUrl
+                                ,params: {
+                                    action: 'mgr/item/reorder'
+                                    ,idItem: records.pop().id
+                                    ,oldIndex: oldIndex
+                                    ,newIndex: newIndex
+                                }
+                                ,listeners: {
+
+                                }
+                            });
+                        }
+
+                        ,'beforerowcopy': function(objThis, oldIndex, newIndex, records) {
+                        }
+
+                        ,'afterrowcopy': function(objThis, oldIndex, newIndex, records) {
+                        }
+                    }
+                });
+
+                Ext.dd.ScrollManager.register(g.getView().getEditorParent());
+            }
+            ,beforedestroy: function(g) {
+                Ext.dd.ScrollManager.unregister(g.getView().getEditorParent());
+            }
+        }
     });
     BxrExtra.grid.Items.superclass.constructor.call(this,config);
 };

@@ -4,11 +4,14 @@
  */
 $xpdo_meta_map['BxrExtraItem']= array (
   'package' => 'bxrextra',
+  'version' => NULL,
   'table' => 'bxrextra_items',
+  'extends' => 'xPDOSimpleObject',
   'fields' => 
   array (
     'name' => '',
     'description' => '',
+    'position' => NULL,
   ),
   'fieldMeta' => 
   array (
@@ -26,6 +29,13 @@ $xpdo_meta_map['BxrExtraItem']= array (
       'phptype' => 'text',
       'null' => false,
       'default' => '',
+    ),
+    'position' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'integer',
+      'null' => false,
     ),
   ),
 );

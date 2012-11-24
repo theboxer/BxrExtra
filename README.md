@@ -47,6 +47,7 @@ Now you should have fully working extra with functions described below.
 - A custom manager page to manage Items on
 - Class based processors
 - Grid with inline editing, right menu function and new item / update item / delete item window and search box
+- Drag and drop sort in grid
 
 If you do not require all of this functionality, simply remove it and change the appropriate code.
 

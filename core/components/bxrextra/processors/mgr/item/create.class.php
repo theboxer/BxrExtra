@@ -10,6 +10,14 @@ class BxrExtraCreateProcessor extends modObjectCreateProcessor {
     public $languageTopics = array('bxrextra:default');
     public $objectType = 'bxrextra.items';
 
+    public function beforeSet(){
+        $items = $this->modx->getCollection($this->classKey);
+
+        $this->setProperty('position', count($items));
+
+        return parent::beforeSet();
+    }
+
     public function beforeSave() {
         $name = $this->getProperty('name');
 

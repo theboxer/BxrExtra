@@ -8,7 +8,7 @@
 class BxrExtraGetListProcessor extends modObjectGetListProcessor {
     public $classKey = 'BxrExtraItem';
     public $languageTopics = array('bxrextra:default');
-    public $defaultSortField = 'name';
+    public $defaultSortField = 'position';
     public $defaultSortDirection = 'ASC';
     public $objectType = 'bxrextra.items';
 
