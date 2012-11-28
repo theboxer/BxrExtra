@@ -90,6 +90,11 @@ BxrExtra.grid.Items = function(config) {
             ,beforedestroy: function(g) {
                 Ext.dd.ScrollManager.unregister(g.getView().getEditorParent());
             }
+
+        }
+
+        ,getDragDropText: function(){
+            return this.selModel.selections.items[0].data.name;
         }
     });
     BxrExtra.grid.Items.superclass.constructor.call(this,config);
