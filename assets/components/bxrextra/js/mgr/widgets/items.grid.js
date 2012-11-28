@@ -92,10 +92,6 @@ BxrExtra.grid.Items = function(config) {
             }
 
         }
-
-        ,getDragDropText: function(){
-            return this.selModel.selections.items[0].data.name;
-        }
     });
     BxrExtra.grid.Items.superclass.constructor.call(this,config);
 };
@@ -168,6 +164,10 @@ Ext.extend(BxrExtra.grid.Items,MODx.grid.Grid,{
         s.baseParams.query = tf.getValue();
         this.getBottomToolbar().changePage(1);
         this.refresh();
+    }
+
+    ,getDragDropText: function(){
+        return this.selModel.selections.items[0].data.name;
     }
 });
 Ext.reg('bxrextra-grid-items',BxrExtra.grid.Items);

@@ -51,5 +51,27 @@ Now you should have fully working extra with functions described below.
 
 If you do not require all of this functionality, simply remove it and change the appropriate code.
 
+### Removing Drag&Drop
+- delete assets/components/yourcomponent/js/mgr/extra/griddraganddrop.js
+- in core/components/yourcomponent/controllers/home.class.php
+    - remove $this->addJavascript($this->yourcomponent->config['jsUrl'].'mgr/extra/griddraganddrop.js');
+- in assets/components/yourcomponent/js/mgr/widgets/items.grid.js
+    - remove ddGroup config parameter
+    - remove enableDragDrop config parameter, or set to false
+    - remove render and beforeDestroy listeners
+    - remove getDragDropText function
+
+#### Removing position from database (position is used for sort)
+- in core/components/yourcomponent/model/schema/yourcomponent.mysql.schema.xml
+    - remove field with "position" key
+- remove all php files in core/component/yourcomponent/model/yourcomponent/mysql folder
+- in _build
+    - rename build.config.sample.php to build.config.php
+    - edit build.config.php and set MODX_BASE_PATH to path to your modx location
+- run _build/build.schema.php
+    - it should make new files in core/component/yourcomponent/model/yourcomponent/mysql folder
+- remove yourcomponent_items table from database
+- run snippet that create database table (described in Setup)
+
 ## Others
 Fell free to open pull requests or add [issues](https://github.com/TheBoxer/BxrExtra/issues "Issues").
