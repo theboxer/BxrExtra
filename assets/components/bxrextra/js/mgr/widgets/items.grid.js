@@ -113,33 +113,40 @@ Ext.extend(BxrExtra.grid.Items,MODx.grid.Grid,{
     }
     
     ,createItem: function(btn,e) {
-        if (!this.windows.createItem) {
-            this.windows.createItem = MODx.load({
-                xtype: 'bxrextra-window-item-create'
-                ,listeners: {
-                    'success': {fn:function() { this.refresh(); },scope:this}
-                }
-            });
-        }
-        this.windows.createItem.fp.getForm().reset();
-        this.windows.createItem.show(e.target);
+        this.createUpdateItem(btn, e, false);
     }
-    ,updateItem: function(btn,e) {
-        if (!this.menu.record || !this.menu.record.id) return false;
-        var r = this.menu.record;
 
-        if (!this.windows.updateItem) {
-            this.windows.updateItem = MODx.load({
-                xtype: 'bxrextra-window-item-update'
-                ,record: r
-                ,listeners: {
-                    'success': {fn:function() { this.refresh(); },scope:this}
-                }
-            });
+    ,updateItem: function(btn,e) {
+        this.createUpdateItem(btn, e, true);
+    }
+
+    ,createUpdateItem: function(btn,e,isUpdate) {
+        var r;
+
+        if(isUpdate){
+            if (!this.menu.record || !this.menu.record.id) return false;
+            r = this.menu.record;
+        }else{
+            r = {};
         }
-        this.windows.updateItem.fp.getForm().reset();
-        this.windows.updateItem.fp.getForm().setValues(r);
-        this.windows.updateItem.show(e.target);
+
+
+
+
+
+        this.windows.createUpdateItem = MODx.load({
+            xtype: 'bxrextra-window-item-create-update'
+            ,isUpdate: isUpdate
+            ,title: (isUpdate) ?  _('bxrextra.item_update') : _('bxrextra.item_create')
+            ,record: r
+            ,listeners: {
+                'success': {fn:function() { this.refresh(); },scope:this}
+            }
+        });
+
+        this.windows.createUpdateItem.fp.getForm().reset();
+        this.windows.createUpdateItem.fp.getForm().setValues(r);
+        this.windows.createUpdateItem.show(e.target);
     }
     
     ,removeItem: function(btn,e) {
@@ -172,68 +179,42 @@ Ext.extend(BxrExtra.grid.Items,MODx.grid.Grid,{
 });
 Ext.reg('bxrextra-grid-items',BxrExtra.grid.Items);
 
-
-
-
-BxrExtra.window.CreateItem = function(config) {
+BxrExtra.window.CreateUpdateItem = function(config) {
     config = config || {};
     this.ident = config.ident || 'bxrextra-mecitem'+Ext.id();
     Ext.applyIf(config,{
-        title: _('bxrextra.item_create')
-        ,id: this.ident
+        id: this.ident
         ,height: 150
         ,width: 475
+        ,closeAction: 'close'
         ,url: BxrExtra.config.connector_url
-        ,action: 'mgr/item/create'
+        ,action: (config.isUpdate)? 'mgr/item/update' : 'mgr/item/create'
         ,fields: [{
             xtype: 'textfield'
-            ,fieldLabel: _('name')
-            ,name: 'name'
-            ,id: this.ident+'-name'
-            ,anchor: '100%'
-        },{
-            xtype: 'textarea'
-            ,fieldLabel: _('description')
-            ,name: 'description'
-            ,id: this.ident+'-description'
-            ,anchor: '100%'
-        }]
-    });
-    BxrExtra.window.CreateItem.superclass.constructor.call(this,config);
-};
-Ext.extend(BxrExtra.window.CreateItem,MODx.Window);
-Ext.reg('bxrextra-window-item-create',BxrExtra.window.CreateItem);
-
-
-BxrExtra.window.UpdateItem = function(config) {
-    config = config || {};
-    this.ident = config.ident || 'bxrextra-meuitem'+Ext.id();
-    Ext.applyIf(config,{
-        title: _('bxrextra.item_update')
-        ,id: this.ident
-        ,height: 150
-        ,width: 475
-        ,url: BxrExtra.config.connector_url
-        ,action: 'mgr/item/update'
-        ,fields: [{
-            xtype: 'hidden'
             ,name: 'id'
             ,id: this.ident+'-id'
+            ,hidden: true
         },{
             xtype: 'textfield'
             ,fieldLabel: _('name')
             ,name: 'name'
             ,id: this.ident+'-name'
-            ,width: 300
+            ,anchor: '100%'
         },{
             xtype: 'textarea'
             ,fieldLabel: _('description')
             ,name: 'description'
             ,id: this.ident+'-description'
-            ,width: 300
+            ,anchor: '100%'
+        },{
+            xtype: 'textfield'
+            ,name: 'position'
+            ,id: this.ident+'-position'
+            ,hidden: true
         }]
     });
-    BxrExtra.window.UpdateItem.superclass.constructor.call(this,config);
+    BxrExtra.window.CreateUpdateItem.superclass.constructor.call(this,config);
 };
-Ext.extend(BxrExtra.window.UpdateItem,MODx.Window);
-Ext.reg('bxrextra-window-item-update',BxrExtra.window.UpdateItem);
+Ext.extend(BxrExtra.window.CreateUpdateItem,MODx.Window);
+Ext.reg('bxrextra-window-item-create-update',BxrExtra.window.CreateUpdateItem);
+
