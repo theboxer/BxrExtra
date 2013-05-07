@@ -3,7 +3,7 @@ BxrExtra.grid.Items = function(config) {
     config = config || {};
     Ext.applyIf(config,{
         id: 'bxrextra-grid-items'
-        ,url: BxrExtra.config.connector_url
+        ,url: BxrExtra.config.connectorUrl
         ,baseParams: {
             action: 'mgr/item/getlist'
         }
@@ -130,10 +130,6 @@ Ext.extend(BxrExtra.grid.Items,MODx.grid.Grid,{
             r = {};
         }
 
-
-
-
-
         this.windows.createUpdateItem = MODx.load({
             xtype: 'bxrextra-window-item-create-update'
             ,isUpdate: isUpdate
@@ -187,7 +183,7 @@ BxrExtra.window.CreateUpdateItem = function(config) {
         ,height: 150
         ,width: 475
         ,closeAction: 'close'
-        ,url: BxrExtra.config.connector_url
+        ,url: BxrExtra.config.connectorUrl
         ,action: (config.isUpdate)? 'mgr/item/update' : 'mgr/item/create'
         ,fields: [{
             xtype: 'textfield'
